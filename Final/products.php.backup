@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<title>
+Office supplies
+</title>
+<link href="products.css" rel="stylesheet" type="text/css" />	
+<a href="index.php"><h1>Office supplies</h1></a>
+</head>
+<body class="Body">
+<?php require('header.php');?>
+<p>
+These are our products:
+</p>
+
+<div class="dropdown">
+  <button class="dropbtn">Paper</button>
+  <div class="dropdown-content">
+    <a href="#">Link 1</a>
+    <a href="#">Link 2</a>
+    <a href="#">Link 3</a>
+  </div>
+  
+</div>
+
+<div class="dropdown">
+<button class="dropbtn">Pens</button>
+  <div class="dropdown-content">
+    <a href="#">Link 1</a>  
+    <a href="#">Link 2</a>
+    <a href="#">Link 3</a>
+  </div>
+ </div>
+ 
+ <div class="dropdown">
+<button class="dropbtn">Erasers</button>
+  <div class="dropdown-content">
+    <a href="#">Link 1</a>
+    <a href="#">Link 2</a>
+    <a href="#">Link 3</a>
+  </div>
+ </div>
+ 
+ <div class="dropdown">
+<button class="dropbtn">Staplers</button>
+  <div class="dropdown-content">
+    <a href="#">Link 1</a>
+    <a href="#">Link 2</a>
+    <a href="#">Link 3</a>
+  </div>
+ </div>
+
+<?php
+  if ($_SESSION["admin_logged_in"]){
+    echo "<div name='Add'>
+  <h3>Add product</h3>
+  <p>Product name</p>
+  <form action='addProduct.php' method='post'>
+  <input type='text' name='productName'>
+  <p>Price</p>
+  <input type='text' name='productPrice'>
+  <p>Select picture</p>
+    <input type='file' name='pic' accept='image'>
+    <input type='submit'>
+  </form>
+  </div>";
+}
+?>
+</body>
+</html>

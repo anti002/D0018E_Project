@@ -1,0 +1,49 @@
+<?php require('header.php');
+	$servername = 'utbweb.its.ltu.se:3306';
+	$username = 'lorkin-4';
+	$password = 'lorkin-4';
+	$dbname = 'lorkin4db';
+
+	$conn = new mysqli($servername, $username, $password, $dbname);
+  
+	if ($conn -> connect_error){
+		die("Connection failed: " . $conn->connect_error);
+	}
+	
+	$sql = "SELECT * FROM Products WHERE name = '". $_POST['prodName'] . "'"; 
+	$productRow = $conn->query($sql);
+	if(($conn->query($sql)) == TRUE){
+		echo "Product found"; 
+	}else{
+		echo "Product not found. Errorcode: ".$conn->error . "";
+	}
+	
+	$sql = "SELECT * FROM ShoppingCarts WHERE  User_id = " . $_SESSION['id'] ." && Products_id = " . ($productRow->fetch_assoc())['id']  . " ";
+	
+	if(($cartRow = $conn->query($sql)) == TRUE && $cartRow->num_rows > 0){
+		echo "Product exists in user cart"; 
+		$quantity = $_POST['quantity'] + ($cartRow->fetch_assoc())['quantity'];
+		
+		$sql = "INSERT INTO ShoppingCarts(User_id, Products_id, quantity, price) VALUES (" . $_SESSION['id'] . ",  $productRow->fetch_assoc()['id'], " . $quantity . ", " . ($quantity * $_POST['prodPrice']) . ")"; 
+	
+		if(($conn->query($sql)) == TRUE){
+			echo "Product successfully added!";
+		}else{
+			echo "Unable to add Product1. Errorcode: ".$conn->error . "";
+		}
+	
+	}else{
+	    
+		$sql = "INSERT INTO ShoppingCarts(User_id, Products_id, quantity, price) VALUES (" . $_SESSION['id'] . ",    $productRow->fetch_assoc()['id'], " . $_POST['quantity'] . " ,   " . ($_POST['quantity'] * $_POST['prodPrice']) . ")"; 
+		if(($conn->query($sql)) == TRUE){
+			echo "Product successfully added!";
+		}else{
+			echo "Unable to add Product2. Errorcode: ".$conn->error . "";
+		}
+	}
+	
+	
+	
+	
+	
+	//header("Location: cart.php");
