@@ -1,5 +1,5 @@
 # D0018E Project
-Repository for E-commerce website project at Luleå University of Technology, 2018
+Repository for E-commerce website project at Luleå University of Technology, 2017
 
 <h2>Website</h2>
 Website can be found  <a href="http://www.student.ltu.se/~anttib-5/index.php">here</a>
